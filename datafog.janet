@@ -1,5 +1,5 @@
 (defn gallop
-  "Gallop search through sorted data until f is false returning the index."
+  "Gallop search through sorted data until f is false, returning that index."
   [ind i f]
   (var step 1)
   (var i i)
@@ -26,7 +26,7 @@
     (= v (get ind (dec i)))))
 
 (defn join-helper
-  "Given two tuple relations, call (f (t1 0) (t1 1) (t2 2)) on each join on (t1 0)."
+  "Given two tuple relations, call (f (t1 0) (t1 1) (t2 2)) on each join on (t1/t2 0)."
   [l r f]
   (var i 0)
   (var j 0)
@@ -68,7 +68,7 @@
     :to-add @[(new-relation ;relations)]})
 
 (defn join-into-variable
-  "Join two tuple relations adding the transformed results to out."
+  "Join two variables adding (xform k v1 v2) as the out variable."
   [out input1 input2 xform]
   (def results @[])
   (def on-join |(array/push results (xform $0 $1 $2)))
@@ -82,6 +82,7 @@
   out)
 
 (defn variable-update-and-changed?
+  "Perform an iteration step update, returning true if there was a change."
   [v]
   (unless (empty? (v :recent))
     # Merge recent into stable.

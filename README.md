@@ -1,6 +1,6 @@
 # Datafog
 
-A janet implementation of datafrog - 'A relatively simple implementation of datalog'.
+A janet implementation of the original datafrog - 'A relatively simple implementation of datalog'.
 
 See this blog post for a description:
 
