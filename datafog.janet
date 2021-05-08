@@ -68,12 +68,12 @@
     :to-add @[(new-relation ;relations)]})
 
 (defn join-into-variable
-  "Join two variables adding (xform k v1 v2) as the out variable."
+  "Join two variables adding (xform k v1 v2) to the out variable."
   [out input1 input2 xform]
   (def results @[])
   (def on-join |(array/push results (xform $0 $1 $2)))
   (each batch1 (input1 :stable)
-    (join-helper (input2 :recent) batch1 on-join))
+    (join-helper batch1 (input2 :recent) on-join))
   (each batch2 (input2 :stable)
     (join-helper (input1 :recent) batch2 on-join))
   (join-helper (input1 :recent) (input2 :recent) on-join)
@@ -82,7 +82,7 @@
   out)
 
 (defn variable-update-and-changed?
-  "Perform an iteration step update, returning true if there was a change."
+  "Perform an iteration step update, returning true if there was a change in the variable."
   [v]
   (unless (empty? (v :recent))
     # Merge recent into stable.
