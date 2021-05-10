@@ -54,18 +54,18 @@
       (set j (gallop r j |(< ($ 0) li0))))))
 
 (defn new-relation
-  [& relations]
-  (sort (distinct (array/concat @[] ;relations))))
+  [& facts]
+  (sort (distinct (array/concat @[] ;facts))))
 
 (defn merge-into-relation
-  [r & relations]
-  (sort (distinct (array/concat r ;relations))))
+  [r & facts]
+  (sort (distinct (array/concat r ;facts))))
 
 (defn new-variable
-  [& relations]
+  [& facts]
   @{:stable @[]
     :recent @[]
-    :to-add @[(new-relation ;relations)]})
+    :to-add @[(new-relation ;facts)]})
 
 (defn join-into-variable
   "Join two variables adding (xform k v1 v2) to the out variable."
